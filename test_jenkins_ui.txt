@@ -1,0 +1,23 @@
+
+let's check the UI now
+We will go through the global configuration and back home
+
+*** Settings ***
+library  Selenium2Library
+
+*** Test Cases ***
+navigate to admin configure and back home page
+    open browser  http://localhost:8080/
+    Set Selenium Speed  1
+    # using xpath is not the best way to target link (might become obsolete)
+    # but that's the easiest/quickest way I found 
+    click element  xpath=//*[@id="tasks"]/div[4]/a[2]
+    click element  xpath=//*[@id="management-links"]/tbody/tr[1]/td[2]/div[1]/a
+    location should be  http://localhost:8080/configure
+    page should contain  /Users/Shared/Jenkins/Home
+    # go back home
+    click image  //*[@id="top-panel"]/table/tbody/tr/td[1]/a/img
+    location should be  http://localhost:8080/
+    # important to close the browser in "teardwown" 
+    # so that a failing test won't let an opened browser
+    [teardown]  close browser
