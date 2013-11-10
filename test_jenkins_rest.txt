@@ -1,0 +1,24 @@
+topic:
+let's check the REST API works well
+
+note:
+for the purpose of the demo, let's assume we have 2 jobs: 1 blue (ok) and the other gray (not yet built)
+
+*** Settings ***
+library       requests
+library       Collections
+Test timeout  5s
+
+*** Test Cases ***
+first job should be blue
+    color of built should be  job_softshake  blue
+
+first job should be notbuilt
+    color of built should be  anotherjob  notbuilt
+    
+*** Keywords ***
+color of built should be
+    [arguments]  ${job_name}  ${expected_color}
+    ${result} =  get  http://localhost:8080/job/${job_name}/api/json
+    ${color} =  get from dictionary  ${result.json()}  color
+    should be equal  ${color}  ${expected_color}
