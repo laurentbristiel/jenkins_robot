@@ -1,17 +1,21 @@
-
 let's check some files and folder of Jenkins Vanilla Install
 
 *** Variables ***
 ${jenkins_home}  /Users/Shared/Jenkins/Home
 
 *** Settings ***
-library  OperatingSystem
+Library  OperatingSystem
 
 *** Test Cases ***
-should be one folder per existing job
-    # here we would deploy jenkins
+should be a home folder
+    # GIVEN Jenkins is deployed
+    # THEN
     directory should exist  ${jenkins_home}
-    # let's assume we have a keyword that creates 2 jobs
+
+should be one folder per existing job
+    # GIVEN Jenkins is deployed
+    # WHEN we create 2 jobs in Jenkins
+    # THEN
     ${number_dir} =  count directories in directory  ${jenkins_home}/jobs
     should be equal  ${number_dir}  ${2}
     

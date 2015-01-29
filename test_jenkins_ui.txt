@@ -1,9 +1,8 @@
-
 let's check the UI now
 We will go through the global configuration and back home
 
 *** Settings ***
-library  Selenium2Library
+Library  Selenium2Library
 
 *** Test Cases ***
 navigate to admin configure and back home page
@@ -20,4 +19,4 @@ navigate to admin configure and back home page
     location should be  http://localhost:8080/
     # important to close the browser in "teardwown" 
     # so that a failing test won't let an opened browser
-    [teardown]  close browser
+    [Teardown]  close browser
